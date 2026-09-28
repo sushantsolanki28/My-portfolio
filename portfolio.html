@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sushant Solanki — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d1b1e; --cream:#fffdf8; --coral:#ff6b5b; --teal:#2ec4b6; --yellow:#ffc857; --violet:#8c7ae6;
+    --muted:#6b6570; --line:rgba(29,27,30,.1);
+    --head:'Baloo 2',sans-serif; --body:'Inter',sans-serif;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit; margin:0; padding:0;}
+  html{scroll-behavior:smooth; height:100%;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--body); line-height:1.65; height:100%; overflow-x:hidden;}
+  h1,h2,h3{font-family:var(--head); font-weight:700; line-height:1.1; letter-spacing:.01em;}
+  a{color:var(--ink); text-decoration:none;}
+  ::selection{background:var(--coral); color:#fff;}
+  :focus-visible{outline:3px solid var(--coral); outline-offset:3px;}
+
+  #progress{position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--coral),var(--yellow),var(--teal)); width:0%; z-index:60; transition:width .1s linear;}
+
+  nav{position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:50;
+    background:rgba(255,253,248,.9); backdrop-filter:blur(6px); border:2px solid var(--ink);
+    border-radius:999px; padding:.5rem .6rem; display:flex; gap:.2rem; max-width:92vw; overflow-x:auto;}
+  nav a{font-family:var(--head); font-size:.8rem; padding:.4rem .8rem; border-radius:999px; white-space:nowrap; color:var(--ink);}
+  nav a.active{background:var(--ink); color:var(--cream);}
+
+  section{padding:6rem 6vw 5rem; max-width:820px; margin:0 auto; position:relative;}
+  .band{max-width:none; margin:0;}
+  .band .inner{max-width:820px; margin:0 auto; padding:6rem 6vw 5rem;}
+  .band-yellow{background:#fff6de;}
+  .band-teal{background:#e6faf8;}
+  .band-coral{background:#fff0ee;}
+  .band-violet{background:#f1eefc;}
+  .band-ink{background:var(--ink); color:var(--cream);}
+  .band-ink h2, .band-ink a{color:var(--cream);}
+
+  .fade{opacity:0; transform:translateY(24px) scale(.98); transition:opacity .6s ease, transform .6s ease;}
+  .fade.in-view{opacity:1; transform:translateY(0) scale(1);}
+
+  #hero{min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding-top:4rem;}
+  .blob{position:absolute; border-radius:50%; z-index:0; opacity:.55; filter:blur(2px);}
+  .b1{width:180px; height:180px; background:var(--yellow); top:8%; right:6%; animation:float 7s ease-in-out infinite;}
+  .b2{width:120px; height:120px; background:var(--teal); bottom:14%; left:2%; animation:float 9s ease-in-out infinite reverse;}
+  .b3{width:70px; height:70px; background:var(--coral); top:38%; right:22%; animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0px) rotate(0deg);}50%{transform:translateY(-18px) rotate(8deg);}}
+  .kicker{font-family:var(--head); font-size:1rem; color:var(--coral); margin-bottom:.6rem; position:relative; z-index:1;}
+  h1.name{font-size:clamp(2.6rem,7vw,4.6rem); position:relative; z-index:1;}
+  .role{font-family:var(--head); font-size:1.3rem; color:var(--teal); margin-top:.4rem; position:relative; z-index:1;}
+  .hero-sub{max-width:52ch; margin-top:1.2rem; font-size:1.05rem; color:var(--muted); position:relative; z-index:1;}
+  .scrolldown{margin-top:2.5rem; font-family:var(--head); font-size:.85rem; color:var(--ink); display:inline-flex; align-items:center; gap:.5rem;}
+  .scrolldown span{display:inline-block; animation:bob 1.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+  .eyebrow{font-family:var(--head); font-size:.85rem; color:var(--coral); margin-bottom:.7rem;}
+  p{max-width:65ch; margin-bottom:1rem; font-size:1rem;}
+  p:last-child{margin-bottom:0;}
+
+  .project-card{background:var(--cream); border:2px solid var(--ink); border-radius:20px; padding:1.6rem 1.8rem; margin-bottom:1.4rem; transition:transform .2s ease, box-shadow .2s ease;}
+  .project-card:hover{transform:translateY(-4px) rotate(-.3deg); box-shadow:6px 6px 0 var(--ink);}
+  .project-card h3{font-size:1.25rem; margin-bottom:.3rem;}
+  .stack{font-family:var(--head); font-size:.78rem; color:var(--teal); margin-bottom:.7rem;}
+  .project-card ul{padding-left:1.1rem; font-size:.92rem; color:#3a353d;}
+  .project-card li{margin-bottom:.3rem;}
+  .project-card a.repo{font-weight:600; border-bottom:2px solid var(--coral);}
+
+  .skill-group{margin-bottom:1.6rem;}
+  .skill-group h3{font-family:var(--head); font-size:1rem; margin-bottom:.6rem;}
+  .tags{display:flex; flex-wrap:wrap; gap:.5rem;}
+  .tags span{font-size:.82rem; font-weight:500; padding:.35rem .75rem; border-radius:999px; background:#fff; border:2px solid var(--ink); transition:transform .15s ease;}
+  .tags span:hover{transform:translateY(-3px) rotate(-2deg); background:var(--yellow);}
+
+  .edu-item{background:#fff; border:2px solid var(--ink); border-radius:18px; padding:1.4rem 1.6rem;}
+  .edu-item h3{font-size:1.1rem;}
+  .edu-meta{font-family:var(--head); color:var(--violet); font-size:.85rem; margin:.3rem 0 .6rem;}
+
+  .cert-list{list-style:none;}
+  .cert-list li{display:flex; gap:.8rem; align-items:flex-start; padding:.8rem 0; border-bottom:2px dashed var(--line); font-size:.96rem;}
+  .cert-list li:last-child{border-bottom:none;}
+  .badge{flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--yellow); display:flex; align-items:center; justify-content:center; font-size:.85rem; border:2px solid var(--ink);}
+
+  .contact-links{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.4rem;}
+  .contact-links a{background:var(--cream); color:var(--ink); font-family:var(--head); font-size:.9rem; padding:.65rem 1.2rem; border-radius:999px; border:2px solid var(--cream);}
+  .band-ink .contact-links a:hover{background:var(--coral); border-color:var(--coral);}
+  footer{padding:1.6rem 6vw; font-size:.8rem; color:var(--muted); text-align:center;}
+
+  @media (max-width:640px){
+    section, .band .inner{padding-left:7vw; padding-right:7vw;}
+    .blob{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1 !important; transform:none !important; transition:none;}
+    .blob, .scrolldown span{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <a href="#about" data-nav>About</a>
+  <a href="#projects" data-nav>Projects</a>
+  <a href="#skills" data-nav>Skills</a>
+  <a href="#education" data-nav>School</a>
+  <a href="#certifications" data-nav>Certs</a>
+  <a href="#contact" data-nav>Say hi</a>
+</nav>
+
+<section id="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="kicker">👋 hey, I'm</div>
+  <h1 class="name">Sushant Solanki</h1>
+  <div class="role">Data Analyst &amp; spreadsheet whisperer</div>
+  <p class="hero-sub">I dig through messy transaction data with SQL and Python until it tells a story, then wrap it in a Power BI dashboard someone can actually use. Based in Gurugram, India.</p>
+  <div class="scrolldown">keep scrolling <span>↓</span></div>
+</section>
+
+<div class="band band-yellow">
+  <div class="inner">
+    <div class="eyebrow fade">About</div>
+    <p class="fade">I'm a Computer Science &amp; Data Science student who genuinely enjoys the unglamorous part of analytics — cleaning duplicate rows, chasing down weird outliers, and figuring out why a metric looks off before anyone else notices.</p>
+    <p class="fade">Most of my practice comes from playing analyst on real-feeling datasets: card-member spending, restaurant orders, retail sales. I write the SQL, build the dashboard, and try to leave behind an answer a stakeholder can act on — not just a chart.</p>
+    <p class="fade">Next up: teaching myself the machine-learning side (regression, clustering, decision trees) and poking at what GenAI can do for faster insight generation.</p>
+  </div>
+</div>
+
+<div class="band band-teal">
+  <div class="inner" id="projects">
+    <div class="eyebrow fade">Projects</div>
+
+    <div class="project-card fade">
+      <h3>American Express Card Member Analysis</h3>
+      <div class="stack">Python · SQL · Power BI · Statistics</div>
+      <ul>
+        <li>End-to-end dig through card-member and transaction data to support real business calls.</li>
+        <li>Cleaned it up first: missing values, duplicates, outliers, then explored spending and city-level patterns.</li>
+        <li>SQL turned raw transactions into customer- and performance-level insight.</li>
+        <li>Shipped as an interactive Power BI dashboard — KPIs, card tiers, city/category spend, monthly trends.</li>
+      </ul>
+      <a class="repo" href="https://github.com/sushantsolanki28/Amex_card_member_analysis" target="_blank" rel="noopener">→ view the repo</a>
+    </div>
+
+    <div class="project-card fade">
+      <h3>AI-Based Assessment Recommendation System</h3>
+      <div class="stack">Python · SQL</div>
+      <ul><li>Recommends the right assessment using job-role, skill, and experience signals — with preprocessing and feature selection done by hand first.</li></ul>
+    </div>
+
+    <div class="project-card fade">
+      <h3>DailyNest Retail Business Analytics</h3>
+      <div class="stack">SQL</div>
+      <ul><li>SQL deep-dive into retail sales, customer behaviour, product performance, and inventory.</li></ul>
+    </div>
+
+    <div class="project-card fade">
+      <h3>AdventureWorks Sales Analytics Dashboard</h3>
+      <div class="stack">Power BI</div>
+      <ul><li>A dashboard for sales performance, product profitability, and regional trends.</li></ul>
+    </div>
+
+    <div class="project-card fade">
+      <h3>QuickBite &amp; ZestEats — Restaurant Analytics</h3>
+      <div class="stack">SQL</div>
+      <ul><li>Two restaurant-delivery datasets, one skill set: joins, window functions, CTEs, and GROUP BY/HAVING to explain revenue and retention.</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="band band-coral">
+  <div class="inner" id="skills">
+    <div class="eyebrow fade">Skills</div>
+    <div class="skill-group fade">
+      <h3>🧮 Data &amp; Analytics</h3>
+      <div class="tags"><span>SQL</span><span>Python (Pandas, NumPy)</span><span>EDA</span><span>Statistical Analysis</span><span>Data Cleaning</span><span>Outlier Detection</span></div>
+    </div>
+    <div class="skill-group fade">
+      <h3>📈 Business Analytics</h3>
+      <div class="tags"><span>KPI Reporting</span><span>Customer Behaviour</span><span>Segmentation</span><span>Dashboard Design</span><span>Insight Generation</span></div>
+    </div>
+    <div class="skill-group fade">
+      <h3>🎨 BI &amp; Visualization</h3>
+      <div class="tags"><span>Power BI</span><span>Matplotlib</span><span>Seaborn</span><span>Excel (Power Query, VLOOKUP)</span></div>
+    </div>
+    <div class="skill-group fade">
+      <h3>🗄️ Databases</h3>
+      <div class="tags"><span>Joins</span><span>Subqueries</span><span>CTEs</span><span>Window Functions</span></div>
+    </div>
+    <div class="skill-group fade">
+      <h3>🚀 Learning next</h3>
+      <div class="tags"><span>ML fundamentals</span><span>GenAI-assisted analytics</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="band band-violet">
+  <div class="inner" id="education">
+    <div class="eyebrow fade">School</div>
+    <div class="edu-item fade">
+      <h3>B.Tech, Computer Science &amp; Data Science</h3>
+      <div class="edu-meta">JSS Academy of Technical Education · 2022–2026</div>
+      <p>Coursework: Computer Science, Data Science, Statistics.</p>
+    </div>
+  </div>
+</div>
+
+<div class="band" id="certifications">
+  <div class="inner">
+    <div class="eyebrow fade">Certifications &amp; badges</div>
+    <ul class="cert-list">
+      <li class="fade"><span class="badge">✓</span> Certificate of Growth Operations — LearnNex</li>
+      <li class="fade"><span class="badge">✓</span> McKinsey.org Forward Program — verified Credly badge</li>
+      <li class="fade"><span class="badge">✓</span> Data Visualization &amp; Analytics — FutureSkills Prime (MeitY–NASSCOM), Gold</li>
+      <li class="fade"><span class="badge">✓</span> CDAC Certificate</li>
+    </ul>
+  </div>
+</div>
+
+<div class="band band-ink" id="contact">
+  <div class="inner">
+    <div class="eyebrow fade" style="color:var(--yellow)">Say hi</div>
+    <h2 class="fade" style="font-size:clamp(1.8rem,4vw,2.6rem)">Got a role, a dataset, or just a question?</h2>
+    <p class="fade" style="color:#cfc9d4">I'm always up for talking data. Reach out any of these ways:</p>
+    <div class="contact-links fade">
+      <a href="mailto:solankinishu45@gmail.com">✉️ solankinishu45@gmail.com</a>
+      <a href="https://github.com/sushantsolanki28" target="_blank" rel="noopener">🖥️ GitHub</a>
+      <a href="https://linkedin.com/in/sushant-solanki" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a href="tel:+918171441182">📱 +91 81714 41182</a>
+    </div>
+  </div>
+</div>
+
+<footer>Made with data, coffee, and a bit of curiosity — © 2026 Sushant Solanki</footer>
+
+<script>
+  var bar = document.getElementById('progress');
+  function updateProgress(){
+    var h = document.documentElement;
+    var pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fades = document.querySelectorAll('.fade');
+  if(reduce){ fades.forEach(function(el){el.classList.add('in-view');}); }
+  else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          setTimeout(function(){ e.target.classList.add('in-view'); }, Array.from(e.target.parentNode.querySelectorAll('.fade')).indexOf(e.target)*70);
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.15});
+    fades.forEach(function(el){ io.observe(el); });
+  }
+
+  var links = document.querySelectorAll('[data-nav]');
+  var sectionIds = ['about','projects','skills','education','certifications','contact'];
+  var sections = sectionIds.map(function(id){return document.getElementById(id);});
+  function onScroll(){
+    var pos = window.scrollY + 140;
+    var current = null;
+    sections.forEach(function(s){ if(s && s.getBoundingClientRect().top + window.scrollY <= pos) current = s; });
+    links.forEach(function(a){
+      a.classList.toggle('active', current && a.getAttribute('href') === '#'+current.id);
+    });
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
